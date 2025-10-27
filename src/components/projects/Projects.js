@@ -9,6 +9,9 @@ import {
   projectSix,
   projectSeven,
   projectEight,
+  projectNine,
+  projectTen,
+  projectEleven,
 } from "../../assets/index";
 import ProjectsCard from "./ProjectsCard";
 
@@ -25,6 +28,42 @@ const Projects = () => {
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 xl:gap-14">
+        {/* Attendance App */}
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://dcadminapp.netlify.app/"
+        >
+          <ProjectsCard
+            title=" Ministry Tracker (Attendance App) "
+            des="The Attendance App, also known as Ministry Tracker, is a church attendance management system developed for Discovery Center (DC) to monitor member participation and track service attendance over time."
+            src={projectEleven}
+          />
+        </a>
+        {/* PrintPalash */}
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://printpalash.vercel.app/"
+        >
+          <ProjectsCard
+            title=" PrintPalash "
+            des="PrintPalash is a modern and efficient printing service web application designed to streamline the process of ordering customized prints such as business cards, flyers, posters, and branded merchandise. The platform allows users to upload designs, preview print samples, and place orders seamlessly."
+            src={projectTen}
+          />
+        </a>
+        {/* DSmart Tech Academy */}
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://smart-tech-academy.vercel.app/"
+        >
+          <ProjectsCard
+            title="SmartTech Academy"
+            des="SmartTech Academy is an educational web platform designed to empower students to learn tech skills like Frontend Development, Backend Development, and UI/UX Design. The website presents the academy’s mission, available courses, and learning structure in a clear and engaging way."
+            src={projectNine}
+          />
+        </a>
         {/* E-commerse */}
         <a
           target="_blank"
