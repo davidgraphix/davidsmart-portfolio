@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# David Smart — Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Personal portfolio for David Smart, Full-Stack Software Developer (Lagos, Nigeria).
 
-## Available Scripts
+Live: https://davidsmart-portfolio-react.vercel.app/
 
-In the project directory, you can run:
+## Stack
 
-### `npm start`
+- React 18 (Create React App) + Tailwind CSS 3
+- Vercel serverless function (`api/contact.js`) + Nodemailer for the contact form
+- No animation library — scroll reveals use `IntersectionObserver` + CSS and respect `prefers-reduced-motion`
+- Light and dark themes follow the OS setting (CSS variables in `src/index.css`)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Structure
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+api/
+  contact.js            POST /api/contact — validation, honeypot, rate limit, Nodemailer
+  _lib/validate.js      Server-side validation (the trusted copy)
+public/
+  index.html            SEO, Open Graph, JSON-LD
+  og-image.png          Social preview image (1200×630)
+  David-Smart-Full-Stack-Software-Developer-CV.pdf   ← add the CV here (see below)
+src/
+  data/site.js          Name, links, email, WhatsApp, CV filename
+  data/projects.js      Featured case studies, more projects, earlier builds
+  data/profile.js       Experience, stack, architecture layers, capabilities
+  components/           Page sections (Hero, Work, Engineering, Experience, …)
+  components/work/      Project rows, case-study dialog, system map, archive
+  setupProxy.js         Dev only: mounts api/contact.js under `npm start`
+```
 
-### `npm test`
+Content lives in `src/data/` — add or edit a project there; no component changes needed.
+Case studies open in a dialog and can be linked directly: `/?case=printpalash`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Development
 
-### `npm run build`
+```bash
+npm install
+cp .env.example .env.local   # add SMTP credentials to test the contact form
+npm start                    # http://localhost:3000
+npm run build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Contact form — environment variables
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Set these in `.env.local` locally and in **Vercel → Project → Settings → Environment Variables**:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Variable         | Required | Default                          |
+| ---------------- | -------- | -------------------------------- |
+| `EMAIL_USER`     | yes      | —                                |
+| `EMAIL_PASSWORD` | yes      | —                                |
+| `EMAIL_HOST`     | no       | `smtp.gmail.com`                 |
+| `EMAIL_PORT`     | no       | `465`                            |
+| `CONTACT_TO`     | no       | `bamideledavidsmart40@gmail.com` |
 
-### `npm run eject`
+For Gmail, `EMAIL_PASSWORD` must be an App Password (requires 2-Step Verification), not the account password.
+Never prefix these with `REACT_APP_` — that would expose them in the browser bundle.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If the variables are missing, the form shows a friendly "temporarily unavailable" message with the email address and WhatsApp instead of pretending to send.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## CV
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Place the final PDF at:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+public/David-Smart-Full-Stack-Software-Developer-CV.pdf
+```
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The site detects it automatically. Until it exists, the CV buttons fall back to "Request CV by email" rather than a broken download.
